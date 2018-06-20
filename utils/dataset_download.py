@@ -1,33 +1,34 @@
 import os
 import colab_fs
 
+
+flags.DEFINE_string('models_folder', '', '')
+flags.DEFINE_string('drive_folder', '', '')
+FLAGS = flags.FLAGS
+
+
+def main(_):
+	assert FLAGS.models_path, '`models_path` is missing.'
+	assert FLAGS.drive_path, '`drive_path` is missing.'
+
+	
 def load_data(fs):
-    base_dir = '/content/_data'
+    #base_dir = '/content/_data'
+    base_dir = FLAGS.models_path
 
-	newDir = os.path.join(base_dir, 'Img')
-    removeAndCreateNewDir(newDir)
-    fs.load_file_from_drive(dest_dir = newDir, filename='Category and Attribute Prediction Benchmark/Img/img.zip')
-    fs.unzip_file(newDir, os.path.join(base_dir, 'Img','img.zip'))
+	dir = os.path.join(base_dir)
+	drive_dir = os.path.join(drive_dir)
+    removeAndCreateNewDir(dir)
+    fs.load_file_from_drive(dest_dir = dir, filename=drive_dir)
 
-    newDir = os.path.join(base_dir, 'Eval')
-	removeAndCreateNewDir(newDir)
-    fs.load_file_from_drive(dest_dir = newDir, filename='Category and Attribute Prediction Benchmark/Eval/list_eval_partition.txt')
-
-    newDir = os.path.join(base_dir, 'Anno')
-	removeAndCreateNewDir(newDir)
-    base_path = 'Category and Attribute Prediction Benchmark/Anno'
-    anno_files = ['list_landmarks.txt', 'list_category_img.txt', 'list_category_cloth.txt', 'list_attr_img.txt', 'list_attr_cloth.txt', 'list_bbox.txt']
-    for anno_file in anno_files:
-        full_name = os.path.join(base_path, anno_file)
-        fs.load_file_from_drive(dest_dir = os.path.join(base_dir, 'Anno'), filename=full_name)
-
+	
 def removeAndCreateNewDir(dirPath):
     if os.path.exists(dirpath) and os.path.isdir(dirpath):
         os.rmdir(dirpath)
     
     os.makedirs(dirpath)
-
-		
+	
+	
 if __name__=='__main__':
     fs = colab_fs.GoogleColabFS()
     load_data(fs)
