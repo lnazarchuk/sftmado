@@ -2,8 +2,8 @@ import os
 import colab_fs
 
 
-flags.DEFINE_string('models_folder', '', '')
-flags.DEFINE_string('drive_folder', '', '')
+flags.DEFINE_string('models_path', '', '')
+flags.DEFINE_string('drive_path', '', '')
 FLAGS = flags.FLAGS
 
 
